@@ -1,17 +1,17 @@
-
 $dll_info = '[DllImport("user32.dll")] public static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);'
 Add-Type -MemberDefinition $dll_info -Name NativeMethods -Namespace Win32
 add-type -AssemblyName microsoft.VisualBasic
 add-type -AssemblyName System.Windows.Forms
 
 function Get-Ie {
-    param($url = "https://google.co.jp")
+    param($url = "")
     $ie = New-Object -ComObject InternetExplorer.Application  # IE‹N“®
     $ie.AddressBar = $false
     $ie.MenuBar = $false
     $ie.StatusBar = $false
     $ie.ToolBar = $false
     $ie.Visible = $true                                       # •\Ž¦
+    Activate-IE $ie
     $ie.Navigate($url)                            # URLŽw’è
     [Win32.NativeMethods]::ShowWindowAsync($ie.HWND, 3) | Out-Null
     While ($ie.Busy) { Start-Sleep -s 1 }

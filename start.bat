@@ -1,0 +1,1 @@
+powershell.exe -ExecutionPolicy Unrestricted -file %~dp0/sampleIedrive.ps1
